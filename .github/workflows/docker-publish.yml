@@ -23,7 +23,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
         with:
           driver: docker-container       
-          
+
       # BACKEND
 
       - name: Build & Push backend image
@@ -34,8 +34,8 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/backend:latest
             ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/backend:latest
-          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/backend:latest,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/backend:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/backend:buildcache,mode=max
 
 
       # FRONTEND
@@ -48,5 +48,5 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/frontend:latest
             ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/frontend:latest
-          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/frontend:latest,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/frontend:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/frontend:buildcache,mode=max
